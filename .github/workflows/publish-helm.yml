@@ -1,0 +1,25 @@
+name: Publish Helm chart
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "helm/**"
+      - ".github/workflows/publish-helm.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  helm:
+    name: Helm chart
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: StavBenSimchon/github-actions/.github/actions/publish-helm@main
+        with:
+          token: ${{ github.token }}
+          cleanup-token: ${{ secrets.GHCR_CLEANUP_TOKEN }}
+          keep: "3"

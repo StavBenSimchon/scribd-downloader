@@ -1,9 +1,16 @@
-name: Publish to GHCR
+name: Publish Docker images
 
 on:
   push:
     branches: [main]
     tags: ["v*"]
+    paths:
+      - "Dockerfile"
+      - ".dockerignore"
+      - "scribd-downloader.py"
+      - "requirements.txt"
+      - "web/**"
+      - ".github/workflows/publish-docker.yml"
   workflow_dispatch:
 
 permissions:
@@ -34,15 +41,4 @@ jobs:
           cleanup-token: ${{ secrets.GHCR_CLEANUP_TOKEN }}
           image-name: scribd-downloader-web
           target: web
-          keep: "3"
-
-  helm:
-    name: Helm chart
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: StavBenSimchon/github-actions/.github/actions/publish-helm@main
-        with:
-          token: ${{ github.token }}
-          cleanup-token: ${{ secrets.GHCR_CLEANUP_TOKEN }}
           keep: "3"
