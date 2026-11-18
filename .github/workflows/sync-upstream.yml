@@ -1,0 +1,23 @@
+name: Sync upstream
+
+on:
+  schedule:
+    - cron: "0 6 * * 1"   # Mondays 06:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: StavBenSimchon/github-actions/.github/actions/sync-upstream@main
+        with:
+          token: ${{ github.token }}
+          upstream-repo: themrsami/scribd-downloader
+          branch: main
