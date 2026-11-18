@@ -1,0 +1,14 @@
+.git
+.gitignore
+assets
+extension
+tests
+screenshots
+*.png
+*.md
+pytest.ini
+requirements-dev.txt
+Dockerfile
+.dockerignore
+docker-compose.yml
+downloads

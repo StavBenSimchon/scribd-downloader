@@ -1,0 +1,12 @@
+services:
+  web:
+    build:
+      context: .
+      target: web
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./downloads:/downloads
+    environment:
+      SCRIBD_HEADLESS: "1"
+      SCRIBD_JOB_TIMEOUT_MINUTES: "30"

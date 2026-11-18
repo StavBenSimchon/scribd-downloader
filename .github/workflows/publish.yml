@@ -1,0 +1,48 @@
+name: Publish to GHCR
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  cli-image:
+    name: Docker image (cli)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: StavBenSimchon/github-actions/.github/actions/build-push-docker@main
+        with:
+          token: ${{ github.token }}
+          cleanup-token: ${{ secrets.GHCR_CLEANUP_TOKEN }}
+          image-name: scribd-downloader
+          keep: "3"
+
+  web-image:
+    name: Docker image (web)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: StavBenSimchon/github-actions/.github/actions/build-push-docker@main
+        with:
+          token: ${{ github.token }}
+          cleanup-token: ${{ secrets.GHCR_CLEANUP_TOKEN }}
+          image-name: scribd-downloader-web
+          target: web
+          keep: "3"
+
+  helm:
+    name: Helm chart
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: StavBenSimchon/github-actions/.github/actions/publish-helm@main
+        with:
+          token: ${{ github.token }}
+          cleanup-token: ${{ secrets.GHCR_CLEANUP_TOKEN }}
+          keep: "3"
