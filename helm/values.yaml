@@ -1,0 +1,38 @@
+# Keep replicaCount at 1: the queue lives in memory and one Chrome
+# eats 1.5-2.5 GB. One backend = one truth (all clients see same queue).
+replicaCount: 1
+
+image:
+  repository: ghcr.io/stavbensimchon/scribd-downloader-web
+  pullPolicy: IfNotPresent
+  tag: "latest"
+
+# Inject your registry secret here:
+# imagePullSecrets:
+#   - name: ghcr-secret
+imagePullSecrets: []
+
+nameOverride: ""
+fullnameOverride: ""
+
+service:
+  type: ClusterIP
+  port: 8000
+
+# Chrome is hungry. Tune if needed.
+resources:
+  requests:
+    cpu: 250m
+    memory: 512Mi
+  limits:
+    memory: 2Gi
+
+# Extra env vars for the container:
+# extraEnv:
+#   - name: SCRIBD_JOB_TIMEOUT_MINUTES
+#     value: "30"
+extraEnv: []
+
+nodeSelector: {}
+tolerations: []
+affinity: {}

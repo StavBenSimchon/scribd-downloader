@@ -1,0 +1,9 @@
+Scribd downloader is up.
+
+Get the app URL:
+
+  kubectl --namespace {{ .Release.Namespace }} port-forward svc/{{ include "scribd-downloader.fullname" . }} 8000:{{ .Values.service.port }}
+
+Then open http://localhost:8000
+
+Chart lives at: oci://ghcr.io/stavbensimchon/scribd-downloader/charts/scribd-downloader
