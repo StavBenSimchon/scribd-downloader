@@ -33,6 +33,14 @@ resources:
 #     value: "30"
 extraEnv: []
 
+# Gateway API HTTPRoute - uncomment to expose via nginx-gateway-fabric:
+# httproute:
+#   hostname: scribd-downloader.bubblerock.org
+#   backendTimeout: "600s"
+#   parentRef:
+#     namespace: nginx-gateway-fabric
+#     name: nginx-gateway-fabric
+
 nodeSelector: {}
 tolerations: []
 affinity: {}
