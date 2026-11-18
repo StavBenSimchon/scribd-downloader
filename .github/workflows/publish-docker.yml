@@ -1,4 +1,4 @@
-name: Publish Docker images
+name: Publish Docker image
 
 on:
   push:
@@ -18,8 +18,8 @@ permissions:
   packages: write
 
 jobs:
-  cli-image:
-    name: Docker image (cli)
+  image:
+    name: Docker image
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -28,17 +28,5 @@ jobs:
           token: ${{ github.token }}
           cleanup-token: ${{ secrets.GHCR_CLEANUP_TOKEN }}
           image-name: scribd-downloader
-          keep: "3"
-
-  web-image:
-    name: Docker image (web)
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: StavBenSimchon/github-actions/.github/actions/build-push-docker@main
-        with:
-          token: ${{ github.token }}
-          cleanup-token: ${{ secrets.GHCR_CLEANUP_TOKEN }}
-          image-name: scribd-downloader-web
           target: web
           keep: "3"

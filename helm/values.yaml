@@ -3,7 +3,7 @@
 replicaCount: 1
 
 image:
-  repository: ghcr.io/stavbensimchon/scribd-downloader-web
+  repository: ghcr.io/stavbensimchon/scribd-downloader
   pullPolicy: IfNotPresent
   tag: "latest"
 
